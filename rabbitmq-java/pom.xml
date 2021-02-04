@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.laher.sample.rabbitmq</groupId>
+    <artifactId>rabbitmq-java</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <junit.version>4.12</junit.version>
+        <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
+        <jib-maven-plugin.version>1.2.0</jib-maven-plugin.version>
+        <rabbitmq.version>5.9.0</rabbitmq.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>${rabbitmq.version}</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>rabbitmq-integration-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.laher.sample.rabbitmq</groupId>
+                        <artifactId>rabbitmq-maven-address-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>local-address</goal>
+                                </goals>
+                                <configuration>
+                                    <localAddress>rabbitmq-local-address</localAddress>
+                                </configuration>
+                                <phase>initialize</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19</version>
+                        <configuration>
+                            <useFile>false</useFile>
+                            <disableXmlReport>true</disableXmlReport>
+                            <systemPropertyVariables>
+                                <rabbitmq.address>${rabbitmq-local-address}</rabbitmq.address>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+
+                    <!--<plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <rabbitmq.address>${rabbitmq-local-address}</rabbitmq.address>
+                                    </systemPropertyVariables>
+                                    <includes>
+                                        <include>**/*Java.java</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>-->
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+</project>
