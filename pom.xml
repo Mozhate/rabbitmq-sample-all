@@ -13,6 +13,7 @@
         <module>rabbitmq-maven-address-plugin</module>
         <module>rabbitmq-exchanges</module>
         <module>rabbitmq-common</module>
+        <module>rabbitmq-spring</module>
     </modules>
 
     <dependencyManagement>

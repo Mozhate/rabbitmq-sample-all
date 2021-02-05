@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
  * @date 2021/2/4
  */
 public class RabbitMqUtil {
-    private final static String HOST = "192.168.50.44";
+    private static String HOST = System.getProperty("rabbitmq.local.address", "192.168.50.44");
     private final static Integer PORT = 5672;
     private final static String USER_NAME = "admin";
     private final static String PASS_WORD = "admin";
