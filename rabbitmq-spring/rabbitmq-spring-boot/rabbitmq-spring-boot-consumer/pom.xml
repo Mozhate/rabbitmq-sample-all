@@ -14,6 +14,22 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <rabbitmq.spring.boot.version>2.3.8.RELEASE</rabbitmq.spring.boot.version>
+        <junit.version>4.12</junit.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <version>${rabbitmq.spring.boot.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
