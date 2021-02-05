@@ -17,11 +17,14 @@ import javax.annotation.Resource;
 @Service(value = "messageService")
 public class MessageServiceImpl implements MessageService {
 
-    @Resource
-    private RabbitTemplate rabbitTemplate;
+    @Resource(name = "rabbitTemplateDirect")
+    private RabbitTemplate rabbitTemplateDirect;
+
+    @Resource(name = "rabbitTemplateTopic")
+    private RabbitTemplate rabbitTemplateTopic;
 
     /**
-     * 推送消息
+     * 推送定点消息
      *
      * @param message 推送内容
      * @author laher
@@ -29,6 +32,19 @@ public class MessageServiceImpl implements MessageService {
      */
     @Override
     public void pushMessage(String message) {
-        rabbitTemplate.convertAndSend("messageTest", message);
+        rabbitTemplateDirect.convertAndSend("messageTest", message);
+    }
+
+    /**
+     * 推送topic消息
+     *
+     * @param message 推送内容
+     * @author laher
+     * @date 2021/2/5
+     */
+    @Override
+    public void pushTopicMessage(String message) {
+        // topic类型交换机，路由规则匹配
+        rabbitTemplateTopic.convertAndSend("messageQueue2.hello", message);
     }
 }

@@ -27,6 +27,6 @@
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
-    <rabbit:template id="rabbitTemplate" exchange="exchangeDirect" connection-factory="connectionFactory"/>
+    <rabbit:template id="rabbitTemplateDirect" exchange="exchangeDirect" connection-factory="connectionFactory"/>
 
 </beans>

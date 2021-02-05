@@ -35,5 +35,15 @@ public class SpringXmlConsumerTest {
         new CountDownLatch(1).await();
     }
 
+    @Test
+    public void testPushTopicMessage() throws InterruptedException {
+        MessageService messageService = (MessageService) context.getBean("messageService");
+        String message = "推送消息Topic！";
+        messageService.pushTopicMessage(message);
+        System.out.println("topic推送成功");
+
+        new CountDownLatch(1).await();
+    }
+
 
 }

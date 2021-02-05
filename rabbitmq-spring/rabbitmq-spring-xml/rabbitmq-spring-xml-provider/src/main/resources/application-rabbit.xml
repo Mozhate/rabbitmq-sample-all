@@ -16,16 +16,23 @@
     <rabbit:admin id="connectionAdmin" connection-factory="connectionFactory"/>
 
     <!--定义队列， durable="true" auto-delete="false" exclusive="false"，采用默认值-->
+    <!--direct 交换机-->
     <rabbit:queue name="messageQueue" declared-by="connectionAdmin"/>
+    <!--topic 交换机-->
+    <rabbit:queue name="messageQueue2" declared-by="connectionAdmin"/>
 
     <!--定义bean-->
     <bean id="pullMessageListener" class="com.laher.spring.xml.listener.PullMessageListener"/>
+    <bean id="topicPullMessageListener" class="com.laher.spring.xml.listener.TopicPullMessageListener"/>
 
     <!--队列监听-->
     <rabbit:listener-container connection-factory="connectionFactory">
 
-        <!--绑定监听的队列-->
-        <rabbit:listener ref="pullMessageListener" queues="messageQueue"/>
+        <!--绑定监听的队列，queues 配置多个队列监听-->
+        <rabbit:listener ref="pullMessageListener" queues="messageQueue,messageQueue2"/>
+        <!--绑定监听的队列-topic-->
+        <rabbit:listener ref="topicPullMessageListener" queues="messageQueue2"/>
+        <!--pullMessageListener，topicPullMessageListener会监听messageQueue2队列获取消息-->
     </rabbit:listener-container>
 
 </beans>

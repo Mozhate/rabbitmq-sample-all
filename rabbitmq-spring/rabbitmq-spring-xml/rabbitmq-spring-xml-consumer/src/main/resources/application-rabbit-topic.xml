@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/rabbit
+     http://www.springframework.org/schema/rabbit/spring-rabbit-1.2.xsd">
+
+    <!--消息推送配置-->
+
+    <!--rabbitmq连接工厂-->
+    <rabbit:connection-factory id="connectionFactory" username="admin" password="admin"
+                               host="192.168.50.44" port="5672"/>
+
+    <!--队列进行管理，用于创建、绑定、删除队列与交换机和发送消息等-->
+    <rabbit:admin id="connectionAdmin2" connection-factory="connectionFactory"/>
+
+    <!--定义队列， durable="true" auto-delete="false" exclusive="false"，采用默认值-->
+    <rabbit:queue name="messageQueue2" declared-by="connectionAdmin2"/>
+
+    <!-- 定义topic交换机-->
+    <rabbit:topic-exchange name="exchangeTopic" declared-by="connectionAdmin2">
+        <!--绑定交换机和队列-->
+        <rabbit:bindings>
+            <rabbit:binding queue="messageQueue2" pattern="messageQueue2.#" />
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+    <rabbit:template id="rabbitTemplateTopic" exchange="exchangeTopic" connection-factory="connectionFactory"/>
+
+</beans>
