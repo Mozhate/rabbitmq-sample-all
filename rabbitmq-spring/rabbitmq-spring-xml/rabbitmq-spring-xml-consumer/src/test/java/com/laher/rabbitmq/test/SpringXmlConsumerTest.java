@@ -45,5 +45,15 @@ public class SpringXmlConsumerTest {
         new CountDownLatch(1).await();
     }
 
+    @Test
+    public void testPushFanoutMessage() throws InterruptedException {
+        MessageService messageService = (MessageService) context.getBean("messageService");
+        String message = "推送消息Fanout！";
+        messageService.pushFanoutMessage(message);
+        System.out.println("fanout推送成功");
+
+        new CountDownLatch(1).await();
+    }
+
 
 }

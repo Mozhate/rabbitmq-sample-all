@@ -26,4 +26,13 @@ public interface MessageService {
      * @date 2021/2/5
      */
     void pushTopicMessage(String message);
+
+    /**
+     * 推送fanout消息
+     *
+     * @param message 推送内容
+     * @author laher
+     * @date 2021/2/5
+     */
+    void pushFanoutMessage(String message);
 }

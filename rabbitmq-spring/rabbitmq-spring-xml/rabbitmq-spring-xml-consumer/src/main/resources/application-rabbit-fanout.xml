@@ -13,19 +13,22 @@
                                host="192.168.50.44" port="5672"/>
 
     <!--队列进行管理，用于创建、绑定、删除队列与交换机和发送消息等-->
-    <rabbit:admin id="connectionAdmin2" connection-factory="connectionFactory"/>
+    <rabbit:admin id="connectionAdmin3" connection-factory="connectionFactory"/>
 
     <!--定义队列， durable="true" auto-delete="false" exclusive="false"，采用默认值-->
-    <rabbit:queue name="messageQueue2" declared-by="connectionAdmin2"/>
+    <rabbit:queue name="messageQueue3" declared-by="connectionAdmin3"/>
+    <rabbit:queue name="messageQueue4" declared-by="connectionAdmin3"/>
 
-    <!-- 定义topic交换机：队列名支持通配符-->
-    <rabbit:topic-exchange name="exchangeTopic" declared-by="connectionAdmin2">
+    <!-- 定义fanout交换机：将消息路由到所有绑定的队列中-->
+    <rabbit:fanout-exchange name="exchangeFanout" declared-by="connectionAdmin3">
         <!--绑定交换机和队列-->
         <rabbit:bindings>
-            <rabbit:binding queue="messageQueue2" pattern="messageQueue2.#" />
+            <!--监听messageQueue3和messageQueue4都会被调用-->
+            <rabbit:binding queue="messageQueue3" />
+            <rabbit:binding queue="messageQueue4" />
         </rabbit:bindings>
-    </rabbit:topic-exchange>
+    </rabbit:fanout-exchange>
 
-    <rabbit:template id="rabbitTemplateTopic" exchange="exchangeTopic" connection-factory="connectionFactory"/>
+    <rabbit:template id="rabbitTemplateFanout" exchange="exchangeFanout" connection-factory="connectionFactory"/>
 
 </beans>

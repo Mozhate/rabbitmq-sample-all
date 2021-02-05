@@ -18,7 +18,7 @@
     <!--定义队列， durable="true" auto-delete="false" exclusive="false"，采用默认值-->
     <rabbit:queue name="messageQueue" declared-by="connectionAdmin"/>
 
-    <!-- 定义direct交换机-->
+    <!-- 定义direct交换机：队列名完全相同-->
     <rabbit:direct-exchange name="exchangeDirect" declared-by="connectionAdmin">
         <!--绑定交换机和队列-->
         <rabbit:bindings>

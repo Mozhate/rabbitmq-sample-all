@@ -23,6 +23,9 @@ public class MessageServiceImpl implements MessageService {
     @Resource(name = "rabbitTemplateTopic")
     private RabbitTemplate rabbitTemplateTopic;
 
+    @Resource(name = "rabbitTemplateFanout")
+    private RabbitTemplate rabbitTemplateFanout;
+
     /**
      * 推送定点消息
      *
@@ -46,5 +49,18 @@ public class MessageServiceImpl implements MessageService {
     public void pushTopicMessage(String message) {
         // topic类型交换机，路由规则匹配
         rabbitTemplateTopic.convertAndSend("messageQueue2.hello", message);
+    }
+
+    /**
+     * 推送fanout消息
+     *
+     * @param message 推送内容
+     * @author laher
+     * @date 2021/2/5
+     */
+    @Override
+    public void pushFanoutMessage(String message) {
+        // fanout类型交换机，广播所有子监听消息
+        rabbitTemplateFanout.convertAndSend(message);
     }
 }

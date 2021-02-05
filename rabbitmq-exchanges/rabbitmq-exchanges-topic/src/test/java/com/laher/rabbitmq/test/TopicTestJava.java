@@ -58,11 +58,11 @@ public class TopicTestJava {
 
         // 绑定交换机和队列
         // 路由key：'*'表示匹配一个单词，'#'表示匹配没有或者多个单词，多个单词使用'.'隔开
-        channel.queueBind("topic_test", "topic_events", "topic_*");
+        channel.queueBind("topic_test", "topic_events", "topic_test.#");
 
         // 发布消息（交换机名称，路由Key，强制性，持久化消息，发送消息）
         // 强制性：没有找到合适的队列，则调用basic.return将消息返回给生产者，若为false，则broker把消息丢弃
-        channel.basicPublish("topic_events", "topic_test", false, null, "hello rabbit topic".getBytes("UTF-8"));
+        channel.basicPublish("topic_events", "topic_test.hello", false, null, "hello rabbit topic".getBytes("UTF-8"));
 
         System.out.println("发送消息成功！！");
 
