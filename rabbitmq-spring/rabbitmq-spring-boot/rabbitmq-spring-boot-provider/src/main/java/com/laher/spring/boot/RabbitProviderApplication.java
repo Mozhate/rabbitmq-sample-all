@@ -4,16 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 推送服务应用
+ * 接收服务应用
  * <p>
  *
  * @author laher
  * @version 1.0.0
- * @date 2021/2/5
+ * @date 2021/2/22
  */
 @SpringBootApplication(scanBasePackages = "com.laher")
-public class RabbitConsumerApplication {
+public class RabbitProviderApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RabbitConsumerApplication.class);
+        SpringApplication.run(RabbitProviderApplication.class);
     }
 }
