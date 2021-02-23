@@ -35,4 +35,19 @@ public class SpringBootConsumerTest {
         System.out.println("推送消息成功");
     }
 
+    @Test
+    public void testTopic() {
+        testMessageService.topicTestMessage("推送topic交换机消息");
+        System.out.println("推送消息成功");
+        // topicTestQueue.hello2开始消费：推送topic交换机消息
+    }
+
+    @Test
+    public void testTopic2() {
+        testMessageService.topicTestMessage2("推送topic交换机消息，hello2");
+        System.out.println("推送消息成功");
+        // topicTestQueue.hello开始消费：推送topic交换机消息，hello2
+        // topicTestQueue.hello2开始消费：推送topic交换机消息，hello2
+    }
+
 }

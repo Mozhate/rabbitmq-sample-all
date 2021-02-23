@@ -53,4 +53,43 @@ public class ProviderRabbitListener {
         System.out.println("directTestQueue开始消费：" + new String(message.getBody(), StandardCharsets.UTF_8));
         // directTestQueue开始消费：推送direct交换机消息
     }
+
+    /**
+     * topic交换机的监听器
+     * <p>
+     * 通过注解方式绑定queue和exchange，且会自动注入到rabbitMQ
+     *
+     * @param message 推送消息
+     * @param channel 渠道
+     * @param tag     交付标签id
+     */
+    @RabbitHandler
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = RabbitConstant.TOPIC_TEST_QUEUE_HELLO),
+            exchange = @Exchange(value = RabbitConstant.TOPIC_TEST_EXCHANGE, type = ExchangeTypes.TOPIC),
+            // routingKey 配置捕获topicTestQueue.hello
+            key = RabbitConstant.TOPIC_TEST_QUEUE_HELLO))
+    public void topicHelloMessage(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+        System.out.println("topicTestQueue.hello开始消费：" + new String(message.getBody(), StandardCharsets.UTF_8));
+    }
+
+    /**
+     * topic交换机的监听器
+     * <p>
+     * 通过注解方式绑定queue和exchange，且会自动注入到rabbitMQ
+     *
+     * @param message 推送消息
+     * @param channel 渠道
+     * @param tag     交付标签id
+     */
+    @RabbitHandler
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = RabbitConstant.TOPIC_TEST_QUEUE_HELLO2),
+            exchange = @Exchange(value = RabbitConstant.TOPIC_TEST_EXCHANGE, type = ExchangeTypes.TOPIC),
+            // routingKey 配置捕获topicTestQueue
+            // 包含topicTestQueue.hello和topicTestQueue.hello2
+            key = RabbitConstant.TOPIC_TEST_ROUTING_ALL))
+    public void topicHello2Message(Message message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+        System.out.println("topicTestQueue.hello2开始消费：" + new String(message.getBody(), StandardCharsets.UTF_8));
+    }
 }

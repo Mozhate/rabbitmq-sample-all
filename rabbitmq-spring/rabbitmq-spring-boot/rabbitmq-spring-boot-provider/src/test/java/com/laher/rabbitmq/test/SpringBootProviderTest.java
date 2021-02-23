@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * 测试消息
  * <p>
@@ -18,9 +20,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = {RabbitProviderApplication.class})
 public class SpringBootProviderTest {
     @Test
-    public void runTest() {
+    public void runTest() throws InterruptedException {
         // 启动项目会将各rabbitMq监听器启动
         System.out.println("启动项目");
+        new CountDownLatch(1).await();
     }
 
 }
