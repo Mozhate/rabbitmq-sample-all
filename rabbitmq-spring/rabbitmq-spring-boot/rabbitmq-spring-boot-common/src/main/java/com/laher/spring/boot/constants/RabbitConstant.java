@@ -48,4 +48,14 @@ public class RabbitConstant {
 
     // --------------
 
+    /**
+     * 重试拒绝队列
+     **/
+    public static final String REJECT_TEST_QUEUE = "rejectTestQueue";
+
+    /**
+     * direct交换机
+     **/
+    public static final String REJECT_TEST_EXCHANGE = "rejectTestExchange";
+
 }

@@ -50,4 +50,10 @@ public class SpringBootConsumerTest {
         // topicTestQueue.hello2开始消费：推送topic交换机消息，hello2
     }
 
+    @Test
+    public void testReject() {
+        testMessageService.rejectTestMessage("推送direct交换机消息");
+        System.out.println("推送消息成功");
+    }
+
 }
