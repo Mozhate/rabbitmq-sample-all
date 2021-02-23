@@ -4,6 +4,7 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,7 +22,7 @@ import com.laher.spring.boot.constants.RabbitConstant;
 public class RabbitDirectConfig {
     /**
      * 使用默认队列和默认交换机
-     *
+     * <p>
      * 提前声明queue 否则报错
      *
      * @return 队列信息
@@ -72,8 +73,9 @@ public class RabbitDirectConfig {
 //     * @date 2021/2/5
 //     */
 //    @Bean
-//    public Binding directExchangeBindingQueue() {
+//    public Binding directExchangeBindingQueue(@Qualifier("directExchange") DirectExchange directExchange,
+//                                              @Qualifier("directQueue") Queue directQueue) {
 //        // 绑定queue和directExchange，并且queue的名称为routingKey
-//        return BindingBuilder.bind(directQueue()).to(directExchange()).withQueueName();
+//        return BindingBuilder.bind(directQueue).to(directExchange).withQueueName();
 //    }
 }
