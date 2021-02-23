@@ -19,4 +19,14 @@ public interface TestMessageService {
      * @date 2021/2/22
      */
     void defaultTestMessage(String message);
+
+    /**
+     * direct交换机消息推送
+     *
+     * @param message 推送信息
+     * @author laher
+     * @version 1.0.0
+     * @date 2021/2/22
+     */
+    void directTestMessage(String message);
 }

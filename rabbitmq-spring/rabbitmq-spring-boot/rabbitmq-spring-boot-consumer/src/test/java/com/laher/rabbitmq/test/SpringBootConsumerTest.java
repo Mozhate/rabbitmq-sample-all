@@ -29,4 +29,10 @@ public class SpringBootConsumerTest {
         System.out.println("推送消息成功");
     }
 
+    @Test
+    public void testDirect() {
+        testMessageService.directTestMessage("推送direct交换机消息");
+        System.out.println("推送消息成功");
+    }
+
 }

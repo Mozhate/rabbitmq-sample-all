@@ -17,8 +17,8 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitDirectConfig {
     /**
      * 使用默认队列和默认交换机
-     *
-     * 提前声明queue 否则报错
+     * <p>
+     * 提前声明queue
      *
      * @return 队列信息
      * @author laher
@@ -27,7 +27,8 @@ public class RabbitDirectConfig {
      */
     @Bean
     public Queue defaultQueue() {
-        return new Queue(RabbitConstant.DEFAULT_TEST_QUEUE);
+        // 队列名称，是否持久化
+        return new Queue(RabbitConstant.DEFAULT_TEST_QUEUE, true);
     }
 
 }

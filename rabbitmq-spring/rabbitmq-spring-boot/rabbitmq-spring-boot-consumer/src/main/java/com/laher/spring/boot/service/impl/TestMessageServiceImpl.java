@@ -33,4 +33,17 @@ public class TestMessageServiceImpl implements TestMessageService {
     public void defaultTestMessage(String message) {
         rabbitTemplate.convertAndSend(RabbitConstant.DEFAULT_TEST_QUEUE, message);
     }
+
+    /**
+     * direct交换机消息推送
+     *
+     * @param message 推送信息
+     * @author laher
+     * @version 1.0.0
+     * @date 2021/2/22
+     */
+    @Override
+    public void directTestMessage(String message) {
+        rabbitTemplate.convertAndSend(RabbitConstant.DIRECT_TEST_EXCHANGE, RabbitConstant.DIRECT_TEST_QUEUE, message);
+    }
 }
